@@ -1,0 +1,74 @@
+@import "./card.scss";
+
+.App {
+  padding: 10px 20px;
+  box-sizing: border-box;
+}
+
+.cardview-header {
+  display: flex;
+}
+
+.cardview {
+  display: flex;
+}
+
+.cardview > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.cardview > .card {
+  flex: 0 0 auto;
+}
+
+.cardview-inputs {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 100%;
+  padding: 15px;
+}
+
+.cardview-inputs > * {
+  margin-bottom: 5px;
+  padding: 6px;
+}
+
+.card-select {
+  margin: 2px;
+}
+
+.small-cards {
+  display: flex;
+  flex-wrap: wrap;
+
+  > .card-archetype {
+    flex: 0 0 100%;
+    padding: 8px 4px;
+    text-transform: uppercase;
+    font-family: ProggySquareTTSZ;
+  }
+
+  > .card-wrapper {
+    position: relative;
+    margin: 2px;
+    width: 65px;
+    height: 94px;
+    cursor: pointer;
+  }
+
+  > .card-wrapper > .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.3);
+    z-index: 0;
+    pointer-events: none;
+    transition: all ease-in-out 0.2s;
+  }
+
+  > .card-wrapper:hover > .card {
+    transform: translate(-50%, -50%) scale(0.4);
+    z-index: 1000;
+  }
+}

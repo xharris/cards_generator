@@ -1,0 +1,86 @@
+{
+  "bird": [
+    {
+      "name": "Basic Bird",
+      "type": "bird",
+      "level": 1,
+      "art": "basic_bird",
+      "flavor": "They say his name is Bob"
+    },
+    {
+      "name": "Intern Bird",
+      "type": "bird",
+      "level": 1,
+      "descr": "When fired, you can return this bird to your hand.",
+      "flavor": "A bird that just can't get enough experience"
+    },
+    {
+      "name": "Night Shift Bird",
+      "type": "bird",
+      "level": 1,
+      "descr": "When hired, draw 1 card and fire this bird."
+    },
+    {
+      "name": "Dismissal",
+      "type": "action",
+      "level": -1,
+      "descr": "Fire any lvl 1 penguin on the field."
+    },
+    {
+      "name": "Lunch break",
+      "type": "quick",
+      "level": -3,
+      "descr": "Cancel an effect."
+    },
+    {
+      "name": "Coffee pot refill",
+      "type": "action",
+      "level": -2,
+      "descr": "Draw 2 cards"
+    },
+    {
+      "name": "Cubicle",
+      "type": "field",
+      "level": 0,
+      "descr": "During pay phase, each adjacent penguin earns an extra $1."
+    },
+    {
+      "name": "Number 2 pencil",
+      "type": "quick",
+      "level": 0,
+      "descr": "Earn $1 for every bird in your zone."
+    },
+    {
+      "name": "Undo",
+      "type": "action",
+      "level": -1,
+      "descr": "Remove a card in your zone."
+    }
+  ],
+  "crime": [
+    {
+      "name": "Bandit Bird",
+      "type": "bird",
+      "level": -1,
+      "descr": "During main phase, you can steal $1 from an opponent."
+    },
+    {
+      "name": "Sabotage Bird",
+      "type": "bird",
+      "level": -2,
+      "descr": "Before main phase, place 1 token on this bird. During main phase, you can remove all tokens from this bird to fire another opponents bird that has the same level or below the number of tokens removed, and gain money equal to the level of that bird."
+    },
+    {
+      "name": "Switchblade",
+      "type": "quick",
+      "level": -1,
+      "descr": "When an opponent hires a bird, earn money equal to it's level and flip it face-down."
+    },
+    {
+      "name": "Failed robbery",
+      "type": "action",
+      "level": 0,
+      "descr": "Fire all birds in your zone with a level less than 0."
+    }
+  ]
+}
