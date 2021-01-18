@@ -6,16 +6,32 @@ const image = (type, name, src) =>
     ? `${process.env.PUBLIC_URL}/${type}/${name}.png`
     : `url("${process.env.PUBLIC_URL}/${type}/${name}.png")`
 
-const Card = ({ type, level, name, art, descr, flavor }) => {
-  const str_level = `${level === 0 ? "" : level < 0 ? "-" : "+"}${Math.abs(
-    level
-  )}`
+const Card = ({ type, level: _level, name, art, descr, flavor }) => {
+  const level = parseInt(_level)
+  const Level = () => (
+    <>
+      {`${level === 0 ? "" : level < 0 ? "-" : "+"}`}${`${Math.abs(level)}`}
+    </>
+  )
+
   const level_color =
     level === 0 ? "#F5F5F5" : level < 0 ? "#f44336" : "#4CAF50"
   return (
     <ClassNames>
       {({ css, cx }) => (
-        <div className="card">
+        <div
+          className={cx(
+            "card",
+            css({
+              background:
+                type === "bird"
+                  ? "#0D47A1"
+                  : type === "field"
+                  ? "#006064"
+                  : "#37474f"
+            })
+          )}
+        >
           <div className="card--inner">
             <div className="card--header">
               <div
@@ -26,7 +42,7 @@ const Card = ({ type, level, name, art, descr, flavor }) => {
                   })
                 )}
               >
-                {str_level}
+                <Level />
               </div>
               <div className="card--name">{name}</div>
               <div className="card--type">
@@ -38,7 +54,14 @@ const Card = ({ type, level, name, art, descr, flavor }) => {
                 className={cx(
                   "card--art",
                   css({
-                    backgroundImage: art && image("art", art)
+                    backgroundImage:
+                      (art || name) &&
+                      image(
+                        "art",
+                        !art || art.length === 0
+                          ? name.toLowerCase().replace(" ", "_")
+                          : art
+                      )
                   })
                 )}
               />

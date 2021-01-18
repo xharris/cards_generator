@@ -14,11 +14,6 @@
   margin: 10px 0px;
 }
 
-.cardview > form {
-  display: flex;
-  flex-direction: column;
-}
-
 .cardview > .card {
   flex: 0 0 auto;
 }
@@ -41,16 +36,20 @@
 
 .small-cards {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
 
-  > .card-archetype {
+  .card-archetype {
     flex: 0 0 100%;
     padding: 8px 4px;
     text-transform: uppercase;
     font-family: ProggySquareTTSZ;
   }
 
-  > .card-wrapper {
+  .card-wrapper {
+    cursor: pointer;
+  }
+
+  .card-cards > .card-wrapper {
     position: relative;
     margin: 2px;
     width: 65px;
@@ -58,7 +57,7 @@
     cursor: pointer;
   }
 
-  > .card-wrapper > .card {
+  .card-cards > .card-wrapper > .card {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -68,8 +67,25 @@
     transition: all ease-in-out 0.2s;
   }
 
-  > .card-wrapper:hover > .card {
+  .card-cards > .card-wrapper:hover > .card {
     transform: translate(-50%, -50%) scale(0.4);
     z-index: 1000;
+  }
+
+  .card-cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-list-item {
+    border: 1px solid #bdbdbd;
+    border-radius: 2px;
+    font-family: ProggySquareTTSZ;
+    padding: 4px;
+    margin-bottom: 3px;
+  }
+
+  .card-list-item:hover {
+    box-shadow: 1px 1px #bdbdbd;
   }
 }

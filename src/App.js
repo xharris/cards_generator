@@ -9,6 +9,7 @@ const App = () => {
   const [cardlist, setCardlist] = useState()
   const [oldName, setOldName] = useState()
   const [focusCard, setFocusCard] = useState()
+  const [viewType, setViewType] = useState("list") // list, cards
 
   useEffect(() => {
     if (!localStorage.getItem("cards")) {
@@ -104,8 +105,16 @@ const App = () => {
           <div className="cardview-inputs">
             <input
               name="name"
+              placeholder="name"
               type="text"
               value={focusCard.name || ""}
+              onChange={e => updateFocusCard(e.target.name, e.target.value)}
+            />
+            <input
+              name="art"
+              placeholder="<art>.png"
+              type="text"
+              value={focusCard.art || ""}
               onChange={e => updateFocusCard(e.target.name, e.target.value)}
             />
             <input
@@ -127,12 +136,14 @@ const App = () => {
             </select>
             <input
               name="descr"
+              placeholder="description"
               type="text"
               value={focusCard.descr || ""}
               onChange={e => updateFocusCard(e.target.name, e.target.value)}
             />
             <input
               name="flavor"
+              placeholder="flavor"
               type="text"
               value={focusCard.flavor || ""}
               onChange={e => updateFocusCard(e.target.name, e.target.value)}
@@ -140,11 +151,13 @@ const App = () => {
             <div className="form-buttons">
               <button
                 onClick={() => {
-                  if (window.confirm(`Delete ${focusCard.name}?`)) {
+                  if (window.confirm(`Delete ${oldName}?`)) {
                     const new_cards = JSON.parse(JSON.stringify(cards))
-                    new_cards[focusCard._arch] = cards[focusCard._arch].filter(
-                      cc => cc.name !== focusCard.name
-                    )
+                    Object.keys(new_cards).forEach(arch => {
+                      new_cards[arch] = cards[arch].filter(
+                        cc => cc.name !== oldName
+                      )
+                    })
                     saveCards(new_cards)
                     selectCard(cardlist[1])
                   }
@@ -170,72 +183,90 @@ const App = () => {
           </div>
         </div>
       )}
-      <div className="small-cards">
-        {cardlist &&
-          cardlist.map(c =>
-            c.archetype ? (
-              <div key={c.archetype} className="card-archetype">
-                <input
-                  type="text"
-                  value={c.archetype || ""}
-                  name="archetype"
-                  onChange={e =>
-                    saveCards({
-                      ...cards,
-                      [c.archetype]: undefined,
-                      [e.target.value]: cards[c.archetype]
-                    })
-                  }
-                />
-                <button
-                  onClick={() =>
-                    saveCards({
-                      ...cards,
-                      [c.archetype]: [
-                        ...cards[c.archetype],
-                        {
-                          name: `${c.archetype}-${cards[c.archetype].length}`,
-                          type: "bird",
-                          level: 0,
-                          descr: "",
-                          flavor: ""
-                        }
-                      ]
-                    })
-                  }
-                >
-                  +
-                </button>
-                <button
-                  onClick={() =>
-                    window.confirm(`Delete ${c.archetype}?`) &&
-                    saveCards({
-                      ...cards,
-                      [c.archetype]: undefined
-                    })
-                  }
-                >
-                  -
-                </button>
-              </div>
-            ) : (
-              <div
-                key={c._index}
-                className="card-wrapper"
-                title={c.name}
-                onClick={() => selectCard(c)}
-              >
-                <Card {...c} />
-              </div>
-            )
-          )}
-        <button
-          className="card-archetype"
-          onClick={() => saveCards({ ...cards, new_arch: [] })}
-        >
-          + archetype
-        </button>
+      <div className="view-changer">
+        view type:
+        <button onClick={() => setViewType("list")}>list</button>
+        <button onClick={() => setViewType("cards")}>cards</button>
       </div>
+      <div className="small-cards">
+        {cards &&
+          Object.keys(cards)
+            .sort()
+            .map(arch => (
+              <div className="card-group" key={arch}>
+                <div key={arch} className="card-archetype">
+                  <input
+                    type="text"
+                    value={arch || ""}
+                    name="archetype"
+                    onChange={e =>
+                      saveCards({
+                        ...cards,
+                        [arch]: undefined,
+                        [e.target.value]: cards[arch]
+                      })
+                    }
+                  />
+                  <button
+                    onClick={() =>
+                      saveCards({
+                        ...cards,
+                        [arch]: [
+                          ...cards[arch],
+                          {
+                            name: `${arch}-${cards[arch].length}`,
+                            type: "bird",
+                            level: 0,
+                            descr: "",
+                            flavor: ""
+                          }
+                        ]
+                      })
+                    }
+                  >
+                    +
+                  </button>
+                  <button
+                    onClick={() =>
+                      window.confirm(`Delete ${arch}?`) &&
+                      saveCards({
+                        ...cards,
+                        [arch]: undefined
+                      })
+                    }
+                  >
+                    -
+                  </button>
+                </div>
+                <div className={`card-${viewType}`}>
+                  {cards[arch].map(c => (
+                    <div
+                      key={c.name}
+                      className="card-wrapper"
+                      title={c.name}
+                      onClick={() => selectCard(c)}
+                    >
+                      {viewType === "cards" ? (
+                        <Card {...c} />
+                      ) : (
+                        <div className="card-list-item">
+                          {`${c.level} / ${c.type
+                            .slice(0, 1)
+                            .toUpperCase()} - ${c.name}: ${c.descr || "--"}`}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+      </div>
+      <button
+        className="card-archetype"
+        onClick={() => saveCards({ ...cards, new_arch: [] })}
+      >
+        + archetype
+      </button>
     </div>
   )
 }
