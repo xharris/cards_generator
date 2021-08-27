@@ -1,0 +1,126 @@
+@import "./card.scss";
+@import "./publish.scss";
+
+@font-face {
+  font-family: "ProggySquareSZ";
+  src: url(./ProggyCleanSZ.ttf) format("truetype");
+}
+
+html,
+body,
+#root,
+.App {
+  height: 100%;
+  font-family: ProggySquareSZ;
+  background: #BDBDBD;
+}
+
+.App {
+  padding: 10px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardview-header {
+  display: flex;
+}
+
+.cardview {
+  display: flex;
+  margin: 10px 0px;
+}
+
+.cardview > .card {
+  flex: 0 0 auto;
+}
+
+.cardview-inputs {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 100%;
+  padding: 15px;
+}
+
+.cardview-inputs > * {
+  margin-bottom: 5px;
+  padding: 6px;
+}
+
+.card-select {
+  margin: 2px;
+}
+
+.small-cards {
+  flex: 0 1 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #212121;
+  border-radius: 3px;
+  padding: 0px 4px;
+
+  .card-archetype {
+    flex: 0 0 100%;
+    padding: 8px 0px;
+    text-transform: uppercase;
+    font-family: ProggySquareSZ;
+  }
+
+  .card-archetype button {
+    width: 21px;
+    padding: 0px;
+    margin: 0px;
+    height: 21px;
+    margin-left: 4px;
+  }
+
+  .card-wrapper {
+    cursor: pointer;
+  }
+
+  .card-cards > .card-wrapper {
+    position: relative;
+    margin: 2px;
+    width: 65px;
+    height: 94px;
+    cursor: pointer;
+  }
+
+  .card-cards > .card-wrapper > .card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.3);
+    z-index: 0;
+    pointer-events: none;
+    transition: all ease-in-out 0.2s;
+  }
+
+  .card-cards > .card-wrapper:hover > .card,
+  .card-cards > .card-wrapper.selected > .card {
+    transform: translate(-50%, -50%) scale(0.4);
+    z-index: 1000;
+  }
+
+  .card-cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-list-item {
+    background: #e0e0e0;
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    font-family: ProggySquareSZ;
+    padding: 4px;
+    margin-bottom: 3px;
+  }
+
+  .card-list-item:hover,
+  .card-wrapper.selected > .card-list-item {
+    background: #e0e0e0;
+    border-color: #bdbdbd;
+    box-shadow: 1px 1px #bdbdbd;
+  }
+}

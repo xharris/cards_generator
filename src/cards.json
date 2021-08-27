@@ -1,0 +1,236 @@
+{
+  "crime": [
+    {
+      "name": "Broken getaway car",
+      "type": "action",
+      "level": 0,
+      "descr": "Remove all birds in your zone with a level less than 0. Earn $1 for each bird removed."
+    },
+    {
+      "name": "Negotiate",
+      "type": "action",
+      "level": "0",
+      "descr": "Remove any \"Hostage Bird\" from your zone. If you do, earn $2 for each and you can add a bird from your deck that is level 0 or lower.",
+      "flavor": ""
+    },
+    {
+      "name": "Officer Bird",
+      "type": "bird",
+      "level": "2",
+      "descr": "Once per turn, you can cancel the activation a negative level card.",
+      "flavor": ""
+    },
+    {
+      "name": "Good bird",
+      "type": "bird",
+      "level": "1",
+      "descr": "When hired, remove any \"Bad Bird\" you control. While you control this bird, the cost of birds in your zone with a negative level become 0.",
+      "flavor": ""
+    },
+    {
+      "name": "Bad bird",
+      "type": "bird",
+      "level": "1",
+      "descr": "When hired, remove any \"Good Bird\" you control. When hired, also remove any birds with a level 0 or below on the field and you earn $2 for each bird removed.",
+      "flavor": ""
+    },
+    {
+      "name": "Hostage Bird",
+      "type": "bird",
+      "level": 0,
+      "descr": "Any birds adjacent to this bird are treated as level 0.",
+      "flavor": "*Screams*"
+    },
+    {
+      "name": "Bandit Bird",
+      "type": "bird",
+      "level": "-1",
+      "descr": "During main phase, you can steal $1 from a random player (including yourself)."
+    },
+    {
+      "name": "Sabotage Bird",
+      "type": "bird",
+      "level": "-1",
+      "descr": "During end phase, you can move this bird to another zone on the field."
+    },
+    {
+      "name": "An inside job",
+      "type": "field",
+      "level": 0,
+      "descr": "Place face-down. You can flip this card, remove it, and move another player's bird to your zone for the rest of the turn.",
+      "flavor": ""
+    },
+    {
+      "name": "Put the money in the bag!",
+      "type": "field",
+      "level": 0,
+      "descr": "Place face-down. If removed or flipped by another player, you steal $2 from that player for each bird in their zone.",
+      "flavor": ""
+    },
+    {
+      "name": "Defect",
+      "type": "quick",
+      "level": 0,
+      "descr": "Move a bird you control to another player's zone until the start of your next main phase.",
+      "flavor": ""
+    },
+    {
+      "name": "Switchblade",
+      "type": "quick",
+      "level": "-2",
+      "descr": "If you control a \"Bandit Bird\", remove 1 bird on the field."
+    }
+  ],
+  "casual": [
+    {
+      "name": "Undo",
+      "type": "action",
+      "level": "0",
+      "descr": "Remove a card in your zone."
+    },
+    {
+      "name": "Number 2 pencil",
+      "type": "action",
+      "level": 0,
+      "descr": "Earn $1 for every bird in your zone."
+    },
+    {
+      "name": "Downsize",
+      "type": "action",
+      "level": "-1",
+      "descr": "Remove all face-down cards in a player's zone.",
+      "flavor": ""
+    },
+    {
+      "name": "Coffee pot refill",
+      "type": "action",
+      "level": "-2",
+      "descr": "Return a bird on the field to the hand of whoever hired it."
+    },
+    {
+      "name": "Basic Bird II",
+      "type": "bird",
+      "level": "2",
+      "descr": "",
+      "flavor": "This bird is an expert",
+      "art": "basic_bird2"
+    },
+    {
+      "name": "Basic Bird",
+      "type": "bird",
+      "level": 1,
+      "art": "basic_bird",
+      "flavor": "This bird just started it's career"
+    },
+    {
+      "name": "Night Shift Bird",
+      "type": "bird",
+      "level": 1,
+      "descr": "During main phase, you can remove this bird to draw 1 card."
+    },
+    {
+      "name": "Intern Bird",
+      "type": "bird",
+      "level": "1",
+      "descr": "When removed, you can return this bird to your hand.",
+      "flavor": "A bird that just can't get enough experience"
+    },
+    {
+      "name": "Evaluation",
+      "type": "field",
+      "level": 0,
+      "descr": "Place face down. When flipped, earn money equal to the level of your zone and return this card to your hand.",
+      "flavor": ""
+    },
+    {
+      "name": "Cubicle",
+      "type": "field",
+      "level": 0,
+      "descr": "During pay phase, earn $1 for each adjacent bird."
+    },
+    {
+      "name": "Lucky  break",
+      "type": "quick",
+      "level": "-1",
+      "descr": "If a player wants to remove one or more cards in your zone or hand. Cancel the removal of one of those cards."
+    },
+    {
+      "name": "Second interview",
+      "type": "quick",
+      "level": "-2",
+      "descr": "If a player hires a bird, flip it face-down before any effects it has activates. It cannot be flipped face-up for the rest of the turn.",
+      "flavor": ""
+    },
+    {
+      "name": "Dismissal",
+      "type": "quick",
+      "level": "-2",
+      "descr": "Remove any level 0 or level 1 bird on the field."
+    }
+  ],
+  "airplane": [
+    {
+      "name": "Promotion",
+      "type": "action",
+      "level": "0",
+      "descr": "You can remove 1 \"Crew Bird\" you control to add a \"Passenger Bird\", \"Co-pilot Bird\", or \"Sky Bird\" to your hand.",
+      "flavor": ""
+    },
+    {
+      "name": "Captain Bird",
+      "type": "bird",
+      "level": "2",
+      "descr": "If a \"Crew Bird\" is ever removed from your zone, you can add it to your hand.",
+      "flavor": ""
+    },
+    {
+      "name": "Passenger Bird",
+      "type": "bird",
+      "level": "1",
+      "descr": "If this bird is removed, lose $2. During main phase, you can hire 1 additional bird.",
+      "flavor": ""
+    },
+    {
+      "name": "Co-pilot Bird",
+      "type": "bird",
+      "level": "1",
+      "descr": "If this bird is removed, lose $2. During main phase, you can remove 1 \"Crew Bird\" from your zone to remove 1 card from the field.",
+      "flavor": ""
+    },
+    {
+      "name": "Sky Bird",
+      "type": "bird",
+      "level": "1",
+      "descr": "During main phase, you can remove 1 \"Crew Bird\" from your zone to add a quick action card from your discard pile to your hand.",
+      "flavor": ""
+    },
+    {
+      "name": "Crew Bird",
+      "type": "bird",
+      "level": "0",
+      "descr": "If this bird is removed, lose $2.",
+      "flavor": "Where's the Captain?"
+    },
+    {
+      "name": "Great Airport",
+      "type": "field",
+      "level": 0,
+      "descr": "You can only control 1 \"Great Airport\". During main phase, you can earn $1 for each \"Crew Bird\", \"Passenger Bird\", \"Sky Bird\", and \"Co-pilot Bird\" you control.",
+      "flavor": ""
+    },
+    {
+      "name": "Crash landing",
+      "type": "quick",
+      "level": 0,
+      "descr": "Remove all \"Crew Bird\" you control and earn $3 for each one.",
+      "flavor": "Oops!"
+    },
+    {
+      "name": "Fast-track",
+      "type": "quick",
+      "level": 0,
+      "descr": "Remove 1 \"Crew Bird\" you control to hire a \"Co-pilot Bird\" or \"Passenger Bird\" from your discard pile or hand.",
+      "flavor": ""
+    }
+  ]
+}
