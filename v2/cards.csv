@@ -1,0 +1,25 @@
+archetype,name,type,level,descr,flavor
+basic,,,,,,
+,"Promotion","action",1,"Discard or fire a bird you control, then add a bird 1 level higher from your deck to your hand.",0
+,"Demotion","action",1,"Discard or fire a bird you control, then add a bird 1 level lower from your deck to your hand.",0
+,"Basic Bird V","bird",5,"Win: Have a Basic Bird I, Basic Bird II, Basic Bird III, Basic Bird IV, and Basic Bird V in your hand or field.",0
+,"Basic Bird IV","bird",4,0,0
+,"Basic Bird III","bird",3,0,0,"basic_bird","basic","basic-0"
+,"Basic Bird II","bird",2,0,0
+,"Basic Bird I","bird",1,0,0
+,"Favoritism","field",0,"When a bird is hired, you can target 1 bird in your trash; Pay it''s cost and add it to your hand.",0
+,"Severance","item",0,"When the equipped bird is fired, gain money equal to it''s level.",0
+,"Undo","quick",2,"Send an item from the field or trash back to the original owner''s hand.",0
+,"Dismiss","quick",0,"When an effect is activated, trash a level 3 or higher bird from your hand or field; Negate the effect.",0
+crime,,,,,,
+,"Bad Bird Of Crime","bird",2,"Win: Have at least 4 ''Good Bird'' in your trash.",0
+,"Bad Bird Bandit","bird",1,"Once per turn, you can choose a player randomly (including yourself); Pick 1 random card in their hand or trash, and if it''s an action card, add it to your hand until the end of your turn.",0
+,"Bad Bird Robber","bird",0,"Once per turn, you can choose a player randomly (including yourself); steal $1 from them.",0
+,"Informant","item",1,"When the equipped bird is fired, return the bird to the hand of it''s original owner.",0
+,"Bad Gun","quick",2,"Target 1 bird on the field; Fire it.","Loaded with death bullets"
+justice,,,,,,
+,"Good Bird Of Justice","bird",3,"Win: Have at least 4 ''Bad Bird'' in your trash.",0
+,"Good Bird Enforcer","bird",2,"You can hire this bird for free by firing a bird you control that costs $1 or less.",0
+,"Rookie Good Bird","bird",1,"When fired, you can add an item from your trash to your hand.",0
+,"Evidence","item",1,"When the equipped bird activates an effect, fire it at the end of the turn it was activated.",0
+,"Good Gun","quick",2,"Target 1 bird on the field; It cannot be fired this turn.","Loaded with life bullets"

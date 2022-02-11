@@ -1,33 +1,42 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useParams
-} from "react-router-dom"
-import Card from "src/js/card"
-import Publish from "src/js/publish"
-import cards_json from "src/cards.json"
-import { saveAs } from "file-saver"
-import "style/index.scss"
+  useParams,
+} from "react-router-dom";
+import Card from "src/js/card";
+import Publish from "src/js/publish";
+import cards_json from "src/cards.json";
+import { saveAs } from "file-saver";
+import "style/index.scss";
+
+export const CARD = {
+  bird: { color: "#0D47A1" },
+  action: { color: "#37474f" },
+  quick: { color: "#37474f" },
+  field: { color: "#006064" },
+  project: { color: "#673AB7" },
+  item: { color: "#006064" },
+};
 
 const ArchInput = ({ defaultValue, onChange }) => {
-  let change_timer
-  const triggerChange = e => {
-    if (change_timer) clearTimeout(change_timer)
-    let new_value = e.target.value
+  let change_timer;
+  const triggerChange = (e) => {
+    if (change_timer) clearTimeout(change_timer);
+    let new_value = e.target.value;
     change_timer = setTimeout(() => {
-      onChange(defaultValue, new_value)
-    }, 1500)
-  }
+      onChange(defaultValue, new_value);
+    }, 1500);
+  };
 
   return (
     <input type="text" defaultValue={defaultValue} onChange={triggerChange} />
-  )
-}
+  );
+};
 
 const DisplayArch = ({ cards }) => {
-  const { arch } = useParams()
+  const { arch } = useParams();
   return (
     arch &&
     cards[arch] && (
@@ -49,25 +58,25 @@ const DisplayArch = ({ cards }) => {
           ))}
       </div>
     )
-  )
-}
+  );
+};
 
 const App = () => {
-  const [cards, setCards] = useState()
-  const [cardlist, setCardlist] = useState()
-  const [oldName, setOldName] = useState()
-  const [focusCard, setFocusCard] = useState()
-  const [viewType, setViewType] = useState("list") // list, cards
-  const [showPublish, setShowPublish] = useState()
+  const [cards, setCards] = useState();
+  const [cardlist, setCardlist] = useState();
+  const [oldName, setOldName] = useState();
+  const [focusCard, setFocusCard] = useState();
+  const [viewType, setViewType] = useState("list"); // list, cards
+  const [showPublish, setShowPublish] = useState();
 
   useEffect(() => {
     if (!localStorage.getItem("cards")) {
-      setCards(cards_json)
-      localStorage.setItem("cards", JSON.stringify(cards_json))
+      setCards(cards_json);
+      localStorage.setItem("cards", JSON.stringify(cards_json));
     } else {
-      setCards(JSON.parse(localStorage.getItem("cards")))
+      setCards(JSON.parse(localStorage.getItem("cards")));
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     if (cards) {
@@ -80,34 +89,34 @@ const App = () => {
                   cards[c].map((card, i) => ({
                     ...card,
                     _arch: c,
-                    _index: `${c}-${i}`
+                    _index: `${c}-${i}`,
                   }))
                 )
               : arr,
           []
         )
-      )
+      );
     }
-  }, [cards])
+  }, [cards]);
 
   useEffect(() => {
-    if (cardlist && !focusCard) {
-      setOldName(cardlist[1].name)
-      setFocusCard(cardlist[1])
+    if (cardlist && cardlist[1] && !focusCard) {
+      setOldName(cardlist[1].name);
+      setFocusCard(cardlist[1]);
     }
-  }, [cardlist, focusCard])
+  }, [cardlist, focusCard]);
 
-  const saveCards = new_cards => {
-    localStorage.setItem("cards", JSON.stringify(new_cards))
-    setCards(new_cards)
-  }
+  const saveCards = (new_cards) => {
+    localStorage.setItem("cards", JSON.stringify(new_cards));
+    setCards(new_cards);
+  };
 
-  const selectCard = card => {
-    setOldName(card.name)
-    setFocusCard(card)
-  }
+  const selectCard = (card) => {
+    setOldName(card.name);
+    setFocusCard(card);
+  };
 
-  const updateFocusCard = (k, v) => setFocusCard({ ...focusCard, [k]: v })
+  const updateFocusCard = (k, v) => setFocusCard({ ...focusCard, [k]: v });
 
   return !cards ? null : (
     <Router>
@@ -125,16 +134,16 @@ const App = () => {
                 <select
                   className="card-select"
                   value={focusCard.name}
-                  onChange={e => {
+                  onChange={(e) => {
                     let card = cardlist.filter(
-                      c => c.name === e.target.value
-                    )[0]
+                      (c) => c.name === e.target.value
+                    )[0];
                     if (card) {
-                      selectCard(card)
+                      selectCard(card);
                     }
                   }}
                 >
-                  {cardlist.map(c =>
+                  {cardlist.map((c) =>
                     c.archetype ? (
                       <option key={c.archetype} disabled>
                         {`--- ${c.archetype} ---`}
@@ -150,36 +159,53 @@ const App = () => {
               <button
                 onClick={() => {
                   const blob = new Blob([JSON.stringify(cards)], {
-                    type: "text/plain;charset=utf-8"
-                  })
-                  saveAs(blob, "cards.json")
+                    type: "text/plain;charset=utf-8",
+                  });
+                  saveAs(blob, "cards.json");
                 }}
               >
                 Export JSON
               </button>
               <button
                 onClick={() => {
-                  const header = ["archetype","name","type","level","descr","flavor"]
-                  const rows = Object.keys(cards).reduce((arch_rows, arch) => [
-                    ...arch_rows,
-                    [arch, ...header.map(h => '')],
-                    ...cards[arch].map(entry => [''].concat(Object.values(entry).map(v => {
-                      if (typeof v === "boolean")
-                        return v ? "TRUE" : "FALSE"
-                      if (!isNaN(v))
-                        return Number(v)
-                      if (typeof v === "string")
-                        return `"${v.replace(/\\([\s\S])|(["'])/g,"$1$2$2")}"`
-                      return v
-                    })))
-                  ], [])
-                    .map(r => r.join(','))
-                    .join('\n')
+                  const header = [
+                    "archetype",
+                    "name",
+                    "type",
+                    "level",
+                    "descr",
+                    "flavor",
+                  ];
+                  const rows = Object.keys(cards)
+                    .reduce(
+                      (arch_rows, arch) => [
+                        ...arch_rows,
+                        [arch, ...header.map((h) => "")],
+                        ...cards[arch].map((entry) =>
+                          [""].concat(
+                            Object.values(entry).map((v) => {
+                              if (typeof v === "boolean")
+                                return v ? "TRUE" : "FALSE";
+                              if (!isNaN(v)) return Number(v);
+                              if (typeof v === "string")
+                                return `"${v.replace(
+                                  /\\([\s\S])|(["'])/g,
+                                  "$1$2$2"
+                                )}"`;
+                              return v;
+                            })
+                          )
+                        ),
+                      ],
+                      []
+                    )
+                    .map((r) => r.join(","))
+                    .join("\n");
 
-                  const blob = new Blob([header.join(',')+'\n'+rows], {
-                    type: "text/plain;charset=utf-8"
-                  })
-                  saveAs(blob, "cards.csv")
+                  const blob = new Blob([header.join(",") + "\n" + rows], {
+                    type: "text/plain;charset=utf-8",
+                  });
+                  saveAs(blob, "cards.csv");
                 }}
               >
                 Export CSV
@@ -192,8 +218,8 @@ const App = () => {
                   if (
                     window.confirm("Are you sure you want to load the JSON?")
                   ) {
-                    setCards(cards_json)
-                    localStorage.setItem("cards", JSON.stringify(cards_json))
+                    setCards(cards_json);
+                    localStorage.setItem("cards", JSON.stringify(cards_json));
                   }
                 }}
               >
@@ -209,7 +235,7 @@ const App = () => {
                     placeholder="name"
                     type="text"
                     value={focusCard.name || ""}
-                    onChange={e =>
+                    onChange={(e) =>
                       updateFocusCard(e.target.name, e.target.value)
                     }
                   />
@@ -218,7 +244,7 @@ const App = () => {
                     placeholder="<art>.png"
                     type="text"
                     value={focusCard.art || ""}
-                    onChange={e =>
+                    onChange={(e) =>
                       updateFocusCard(e.target.name, e.target.value)
                     }
                   />
@@ -226,18 +252,18 @@ const App = () => {
                     name="level"
                     type="number"
                     value={focusCard.level || 0}
-                    onChange={e =>
+                    onChange={(e) =>
                       updateFocusCard(e.target.name, e.target.value)
                     }
                   />
                   <select
                     name="type"
                     value={focusCard.type || "bird"}
-                    onChange={e =>
+                    onChange={(e) =>
                       updateFocusCard(e.target.name, e.target.value)
                     }
                   >
-                    {["bird", "action", "quick", "field"].map(t => (
+                    {Object.keys(CARD).map((t) => (
                       <option key={t} value={t}>
                         {t}
                       </option>
@@ -249,7 +275,7 @@ const App = () => {
                     type="text"
                     value={focusCard.descr || ""}
                     rows={4}
-                    onChange={e =>
+                    onChange={(e) =>
                       updateFocusCard(e.target.name, e.target.value)
                     }
                   />
@@ -258,7 +284,7 @@ const App = () => {
                     placeholder="flavor"
                     type="text"
                     value={focusCard.flavor || ""}
-                    onChange={e =>
+                    onChange={(e) =>
                       updateFocusCard(e.target.name, e.target.value)
                     }
                   />
@@ -266,14 +292,14 @@ const App = () => {
                     <button
                       onClick={() => {
                         if (window.confirm(`Delete ${oldName}?`)) {
-                          const new_cards = JSON.parse(JSON.stringify(cards))
-                          Object.keys(new_cards).forEach(arch => {
+                          const new_cards = JSON.parse(JSON.stringify(cards));
+                          Object.keys(new_cards).forEach((arch) => {
                             new_cards[arch] = cards[arch].filter(
-                              cc => cc.name !== oldName
-                            )
-                          })
-                          saveCards(new_cards)
-                          selectCard(cardlist[1])
+                              (cc) => cc.name !== oldName
+                            );
+                          });
+                          saveCards(new_cards);
+                          selectCard(cardlist[1]);
                         }
                       }}
                     >
@@ -281,14 +307,14 @@ const App = () => {
                     </button>
                     <button
                       onClick={() => {
-                        const new_cards = JSON.parse(JSON.stringify(cards))
-                        Object.keys(new_cards).forEach(arch => {
-                          new_cards[arch] = new_cards[arch].map(card =>
+                        const new_cards = JSON.parse(JSON.stringify(cards));
+                        Object.keys(new_cards).forEach((arch) => {
+                          new_cards[arch] = new_cards[arch].map((card) =>
                             card.name === oldName ? { ...focusCard } : card
-                          )
-                        })
-                        saveCards(new_cards)
-                        setOldName(focusCard.name)
+                          );
+                        });
+                        saveCards(new_cards);
+                        setOldName(focusCard.name);
                       }}
                     >
                       Save
@@ -306,16 +332,16 @@ const App = () => {
               {cards &&
                 Object.keys(cards)
                   .sort()
-                  .map(arch => (
+                  .map((arch) => (
                     <div className="card-group" key={arch}>
                       <div key={arch} className="card-archetype">
                         <ArchInput
                           defaultValue={arch || ""}
                           onChange={(lastv, newv) => {
-                            const new_cards = { ...cards }
-                            delete new_cards[lastv]
-                            new_cards[newv] = [...cards[lastv]]
-                            saveCards(new_cards)
+                            const new_cards = { ...cards };
+                            delete new_cards[lastv];
+                            new_cards[newv] = [...cards[lastv]];
+                            saveCards(new_cards);
                           }}
                         />
                         <button
@@ -325,13 +351,13 @@ const App = () => {
                               type: "bird",
                               level: 0,
                               descr: "",
-                              flavor: ""
-                            }
+                              flavor: "",
+                            };
                             saveCards({
                               ...cards,
-                              [arch]: [...cards[arch], new_card]
-                            })
-                            selectCard(new_card)
+                              [arch]: [...cards[arch], new_card],
+                            });
+                            selectCard(new_card);
                           }}
                         >
                           +
@@ -341,7 +367,7 @@ const App = () => {
                             window.confirm(`Delete ${arch}?`) &&
                             saveCards({
                               ...cards,
-                              [arch]: undefined
+                              [arch]: undefined,
                             })
                           }
                         >
@@ -353,12 +379,12 @@ const App = () => {
                           cards[arch]
                             .sort((a, b) => {
                               const type =
-                                a.type.charCodeAt(0) - b.type.charCodeAt(0)
-                              if (type !== 0) return type
-                              const level = b.level - a.level
-                              return level
+                                a.type.charCodeAt(0) - b.type.charCodeAt(0);
+                              if (type !== 0) return type;
+                              const level = b.level - a.level;
+                              return level;
                             })
-                            .map(c => (
+                            .map((c) => (
                               <div
                                 key={c.name}
                                 className={`card-wrapper${
@@ -370,7 +396,12 @@ const App = () => {
                                 {viewType === "cards" ? (
                                   <Card {...c} />
                                 ) : (
-                                  <div className="card-list-item">
+                                  <div
+                                    className="card-list-item"
+                                    style={{
+                                      borderColor: CARD[c.type].color,
+                                    }}
+                                  >
                                     {`${c.level} / ${c.type
                                       .slice(0, 1)
                                       .toUpperCase()} - ${c.name}: ${
@@ -394,7 +425,7 @@ const App = () => {
         </Route>
       </Switch>
     </Router>
-  )
-}
+  );
+};
 
-export default App
+export default App;
